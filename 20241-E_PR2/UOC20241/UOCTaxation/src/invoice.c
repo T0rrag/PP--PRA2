@@ -9,21 +9,128 @@
 
 // Initialize an invoice list
 void invoiceList_init(tRentInvoiceData * list) {
-    // PR2 Ex 1a
-    
+    /* PR2 Ex 1a */
+    /*INIT PROCEDURE*/
+    assert(list != NULL);
+    list->first = NULL;
+    list->count = 0;
 }
 
 // Function to update or add a tenant's rent across their tenancy period
 void invoiceList_update(tRentInvoiceData * list, tDate startMonthDate, tDate endMonthDate, char * cadastral_ref, float rent) {
-    // PR2 Ex 1b   
+    /* PR2 Ex 1b */
+    /* RECEIVED FROM TEST */
+    //tenant_initialize(&tenant,"01/09/2022","31/08/2023","T001","John Doe",1000.0f,30,"ZYX1234","LE24001");
+                                //datecheck   datecheck
+    //                          From both, check montly invoice
+    //                          update invoices
+    //                                                    calculate new invoice
+    //                                                                                  get cadastral_ref
+    //                                                                                  sort by cadastral ref
+    assert(list != NULL);
+    assert(cadastral_ref != NULL);
 
+    tRentInvoiceMonthly *current = list->first;
+    tRentInvoiceMonthly *prev = NULL;
+
+    /*FIND POSITION IN LIST*/
+    while (current != NULL && date_cmp(current->month, startMonthDate) < 0) {
+    prev = current;
+    current = current->next;
+    } tDate currentMonth = startMonthDate;
+
+    /*FOR EACH MONTH IN RANGE ITERATE THROUGH MONTHS*/
+    while (date_cmp(currentMonth, endMonthDate) <= 0) {
+        
+    /*CREATE NEW INVOICE FOR MONTH*/
+    if (current == NULL || date_cmp(current->month, currentMonth) != 0) {
+        tRentInvoiceMonthly *newInvoice = malloc(sizeof(tRentInvoiceMonthly));
+        if (newInvoice == NULL) {
+            exit(EXIT_FAILURE);
+        }
+        monthlyInvoice_init(newInvoice, currentMonth);
+
+        /*INVOICE INSERT PROCEDURE*/
+        if (prev == NULL) {
+            newInvoice->next = list->first;
+            list->first = newInvoice;
+        } else {
+            newInvoice->next = prev->next;
+            prev->next = newInvoice;
+        }
+
+        list->count++;
+        prev = newInvoice;
+        current = newInvoice;
+    }
+
+    /*ADD OR UPDATE INVOICES PRODEDURE*/
+    tRentInvoiceNode *currentNode = current->first;
+    tRentInvoiceNode *prevNode = NULL;
+    bool updated = false;
+
+    while (currentNode != NULL) {
+        if (strcmp(currentNode->elem.cadastral_ref, cadastral_ref) == 0) {
+            currentNode->elem.rent = rent;
+            updated = true;
+            break;
+        } else if (strcmp(currentNode->elem.cadastral_ref, cadastral_ref) > 0) {
+            break;
+        }
+        prevNode = currentNode;
+        currentNode = currentNode->next;
+    }
+
+    if (!updated) {
+        tRentInvoiceNode *newNode = malloc(sizeof(tRentInvoiceNode));
+        if (newNode == NULL) {
+            exit(EXIT_FAILURE);
+        }
+        invoiceNode_init(newNode, rent, cadastral_ref);
+
+        if (prevNode == NULL) {
+            newNode->next = current->first;
+            current->first = newNode;
+            } else {
+            newNode->next = prevNode->next;
+            prevNode->next = newNode;
+        }
+        current->count++;
+    }
+
+    /*NEXT MONTH*/
+    date_addMonth(&currentMonth, 1);
+
+    if (current != NULL && date_cmp(current->month, currentMonth) < 0) {
+        prev = current;
+        current = current->next;
+    }
+ }
 }
-
 // Get the rent amount for a certain invoice and date
 float getInvoiceMonthly(tRentInvoiceData * data, tDate date) {
-    // PR2 Ex 1c
+    /* PR2 Ex 1c */
+    /*FLOAT CONDITIONS = 2 DECIMALS*/
+    float totalRent = 0.00;
+    tRentInvoiceMonthly* currentMonthly = data->first;
    
-    return 0;
+    /*ITERATE THROUGH INVOICES*/
+    while (currentMonthly != NULL) {
+       
+        /*MATCHING MONTH&YEAR PROCEDURE*/
+        if (currentMonthly->month.year == date.year && currentMonthly->month.month == date.month) {
+            tRentInvoiceNode* currentNode = currentMonthly->first;
+            while (currentNode != NULL) {
+               
+                /*ADD THE RENT TO TOTAL*/
+                totalRent += currentNode->elem.rent;
+                currentNode = currentNode->next;
+                }
+                return totalRent;
+            }
+        currentMonthly = currentMonthly->next;
+    }
+return totalRent;
 }
 
 // Release a list of invoices
@@ -173,5 +280,4 @@ int testVerifySpecificDate(tRentInvoiceData * invoiceList,
 /////////////////////////////////////////
 ///// AUX Methods: Top-down design //////
 /////////////////////////////////////////
-
 
