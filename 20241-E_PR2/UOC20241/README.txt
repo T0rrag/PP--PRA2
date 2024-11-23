@@ -1,3 +1,3 @@
-student@uoc.edu
-Surname, Name
-Windows 11
+torrag@uoc.edu
+Torres Barros, Ángel
+Lubuntu 22.04.1
