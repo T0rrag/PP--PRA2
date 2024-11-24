@@ -80,13 +80,10 @@ tApiError api_initData(tApiData* data) {
     rentalIncomes_init(&(data->rentalIncomes));
 	
 	//////////////////////////////////
-    // Ex PR2 3b
+    /*Ex PR2 3b*/
     /////////////////////////////////
-	
+	taxOfficeList_init(&(data->taxOffices));
     /////////////////////////////////
-    
-
-    
     return E_SUCCESS;
     
     /////////////////////////////////
@@ -101,9 +98,41 @@ tApiError api_addTenant(tApiData* data, tCSVEntry entry) {
     tTenant tenant;
 	
 	//////////////////////////////////
-    // Ex PR2 3c
+    /*Ex PR2 3c*/
     ///////////////////////////////// 
-	
+	tTaxOffice *taxOffice;
+    char postalCode [MAX_POSTAL_CODE+1];
+    tDate startDate, endDate;
+    float rent;
+    char cadastralRef[MAX_CADASTRAL_REF+1];
+    tApiError error;
+    
+    /*NULL CHECKER*/
+    assert(data != NULL);
+    
+    /*ENTRY TYPE CHECKER*/
+    if (strcmp(csv_getType(&entry), "TENANT") != 0) {
+        return E_INVALID_ENTRY_TYPE;
+    }
+    
+    /*FIELD CHECKER*/
+    if (csv_numFields(entry) != NUM_FIELDS_TENANT) {
+        return E_INVALID_ENTRY_FORMAT;
+    }
+    
+    /*TENANT PARSE PROCEDURE*/
+    tenant_parse(&tenant, entry);
+    
+    /*CHECK FOR DUPLICATES*/
+    if (tenantData_find(data->tenants, tenant.tenant_id) >= 0) {
+        tenant_free(&tenant);
+        return E_TENANT_DUPLICATED;
+    }
+    
+    /*DATA EXTRACTION*/
+    csv_getAsString(entry, 7, postalCode, MAX_POSTAL_CODE+1);
+    csv_get(entry, 8, &startDate);
+    
     /////////////////////////////////
 
     
@@ -362,10 +391,8 @@ int api_rentalIncomesCount(tApiData data) {
 // Get the number of health centers registered on the application
 int api_taxOfficeCount(tApiData data) {
     //////////////////////////////////
-    // Ex PR2 3e
-    return -1;
-    /////////////////////////////////
-    
+    /* Ex PR2 3e*/
+    return data.taxOffices.count;
 }
 
 

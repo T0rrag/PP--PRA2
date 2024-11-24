@@ -22,12 +22,8 @@ typedef struct _ApiData {
     // Landlords rental income
     tRentalIncomeList rentalIncomes;
 	 ////////////////////////////////
-    // Ex PR2 3b
-    
-    ////////////////////////////////   
-
-	
-    ////////////////////////////////
+    /* Ex PR2 3a*/
+    tTaxOfficeList taxOffices;
 } tApiData;
 
 // Get the API version information
