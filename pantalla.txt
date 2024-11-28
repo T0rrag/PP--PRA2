@@ -1,0 +1,93 @@
+
+==1926307== Memcheck, a memory error detector
+==1926307== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==1926307== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==1926307== Command: ./c.out --no-wait --readme ./README.txt
+==1926307== 
+
+=========================================================================
+	 Name: Angel Torres Barros
+	 Email: torrag@uoc.edu
+=========================================================================
+
+=========================================================================
+	 TEST RESULTS
+=========================================================================
+
+	=================================================================
+	Tests for PR1 exercices
+	=================================================================
+		[OK]:	 [PR1_EX1_1] Read version information.
+		[OK]:	 [PR1_EX2_1] Initialize the API data structure
+		[OK]:	 [PR1_EX2_2] Add an invalid tenant
+		[OK]:	 [PR1_EX2_3] Add a valid tenant
+		[OK]:	 [PR1_EX2_4] Add a duplicated tenant
+		[OK]:	 [PR1_EX2_5] Add an invalid landlord
+		[OK]:	 [PR1_EX2_6] Add a valid landlord
+		[OK]:	 [PR1_EX2_7] Add a duplicated landlord
+		[OK]:	 [PR1_EX2_8] Add an invalid property
+		[OK]:	 [PR1_EX2_9] Add a valid property
+		[OK]:	 [PR1_EX2_10] Add a duplicated property
+		[OK]:	 [PR1_EX2_11] Add an invalid rental income
+		[OK]:	 [PR1_EX2_12] Add a valid rental income
+		[OK]:	 [PR1_EX2_13] Find a rental income in the data
+		[OK]:	 [PR1_EX2_14] Check the number of tenants
+		[OK]:	 [PR1_EX2_15] Check the number of landlords
+		[OK]:	 [PR1_EX2_16] Check the number of properties
+		[OK]:	 [PR1_EX2_17] Check the number of rental incomes
+		[OK]:	 [PR1_EX2_18] Free API data
+		[OK]:	 [PR1_EX2_19] Load data from file
+		[OK]:	 [PR1_EX3_1] Request a valid landlord
+		[OK]:	 [PR1_EX3_2] Request a missing landlord
+		[OK]:	 [PR1_EX3_3] Request a valid rental income
+		[OK]:	 [PR1_EX3_4] Request a missing rental income
+		[OK]:	 [PR1_EX3_5] Get registered properties
+		[OK]:	 [PR1_EX3_6] Get registered rental incomes
+	=================================================================
+	Total Tests: 26
+	Passed Tests: 26 ( 100.00 % )
+	Failed Tests: 0 ( 0.00 %)
+	=================================================================
+
+	=================================================================
+	Tests for PR2 exercices
+	=================================================================
+		[OK]:	 [PR2_EX1_1] Initialize invoices data structure
+		[OK]:	 [PR2_EX1_2] Add a contract to an empty invoice list
+		[OK]:	 [PR2_EX1_3] Add new contract in order
+		[OK]:	 [PR2_EX1_4] Add contract before existing invoices
+		[OK]:	 [PR2_EX1_5] Add another contract
+		[OK]:	 [PR2_EX1_6] Update contract rent
+		[OK]:	 [PR2_EX1_8] Request the total rent for a specific date
+		[OK]:	 [PR2_EX2_1] Initialize a tax office
+		[OK]:	 [PR2_EX2_2] Remove tax office data
+		[OK]:	 [PR2_EX2_3] Initialize list of tax office
+		[OK]:	 [PR2_EX2_4] Check if the office code is correct
+		[OK]:	 [PR2_EX2_5] Insert a tax office to an empty list
+		[OK]:	 [PR2_EX2_6] Test office code is sorting
+		[OK]:	 [PR2_EX2_7] Find an existing office by code
+		[OK]:	 [PR2_EX2_8] Find a non existing office by code
+		[OK]:	 [PR2_EX2_9] Release a list of list office
+		[OK]:	 [PR2_EX3_1] Initialize the API data
+		[OK]:	 [PR2_EX3_2] Load API data
+		[OK]:	 [PR2_EX3_3] Obtain number of centers in the API
+	=================================================================
+	Total Tests: 19
+	Passed Tests: 19 ( 100.00 % )
+	Failed Tests: 0 ( 0.00 %)
+	=================================================================
+
+=========================================================================
+Total Tests: 45
+Passed Tests: 45 ( 100.00 % )
+Failed Tests: 0 ( 0.00 % )
+=========================================================================
+==1926307== 
+==1926307== HEAP SUMMARY:
+==1926307==     in use at exit: 0 bytes in 0 blocks
+==1926307==   total heap usage: 2,131 allocs, 2,131 frees, 440,586 bytes allocated
+==1926307== 
+==1926307== All heap blocks were freed -- no leaks are possible
+==1926307== 
+==1926307== For lists of detected and suppressed errors, rerun with: -s
+==1926307== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
